@@ -1,0 +1,24 @@
+# Server
+server:
+  port: 8080
+
+spring:
+  # Database
+  datasource:
+    url: jdbc:h2:mem:pricesDB
+    username: root
+    password: root
+    driverClassName: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+    properties:
+      hibernate.hibernate.format_sql: true
+      hibernate.hibernate.show_sql: true
+  # SQL script location
+  sql:
+    init:
+      schema-locations: classpath:database/schema.sql
