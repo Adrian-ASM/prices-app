@@ -1,5 +1,6 @@
-package com.adri4sm.prices_app.domain.entity;
+package com.adri4sm.prices_app.infrastructure.database.h2.entity;
 
+import com.adri4sm.prices_app.domain.model.Currency;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "PRICES")
-public class Price {
+public class PriceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,13 +45,14 @@ public class Price {
     private Double productPrice;
 
     @Column(name = "CURR", nullable = false, length = 3)
-    private String currency;
+    @Enumerated(value = EnumType.STRING)
+    private Currency currency;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Price price)) return false;
-        return Objects.equals(id, price.id) && Objects.equals(brandId, price.brandId) && Objects.equals(startDate, price.startDate) && Objects.equals(endDate, price.endDate) && Objects.equals(rateId, price.rateId) && Objects.equals(productId, price.productId) && Objects.equals(priority, price.priority) && Objects.equals(productPrice, price.productPrice) && Objects.equals(currency, price.currency);
+        if (!(o instanceof PriceEntity priceEntity)) return false;
+        return Objects.equals(id, priceEntity.id) && Objects.equals(brandId, priceEntity.brandId) && Objects.equals(startDate, priceEntity.startDate) && Objects.equals(endDate, priceEntity.endDate) && Objects.equals(rateId, priceEntity.rateId) && Objects.equals(productId, priceEntity.productId) && Objects.equals(priority, priceEntity.priority) && Objects.equals(productPrice, priceEntity.productPrice) && Objects.equals(currency, priceEntity.currency);
     }
 
     @Override
