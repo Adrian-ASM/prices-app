@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class PriceRepositoryImpl implements PriceRepository {
@@ -23,7 +24,8 @@ public class PriceRepositoryImpl implements PriceRepository {
     }
 
     @Override
-    public Price findPricesByProductIdAndBrandIdOnSelectedDate(Long productId, Integer brandId, LocalDateTime selectedDate) {
-        return priceMapper.toDomain(priceH2DBRepository.findPriorPriceByProductIdAndBrandIdOnSelectedDate(productId, brandId, selectedDate));
+    public Optional<Price> findPricesByProductIdAndBrandIdOnSelectedDate(Long productId, Integer brandId, LocalDateTime selectedDate) {
+        return priceH2DBRepository.findPriorPriceByProductIdAndBrandIdOnSelectedDate(productId, brandId, selectedDate)
+                .map(priceMapper::toDomain);
     }
 }

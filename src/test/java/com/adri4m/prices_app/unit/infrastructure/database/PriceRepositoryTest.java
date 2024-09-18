@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -32,11 +33,11 @@ public class PriceRepositoryTest {
 
         PriceEntity priceEntity = mock(PriceEntity.class);
 
-        when(priceH2DBRepository.findPriorPriceByProductIdAndBrandIdOnSelectedDate(productId, brandId, selectedDate)).thenReturn(priceEntity);
+        when(priceH2DBRepository.findPriorPriceByProductIdAndBrandIdOnSelectedDate(productId, brandId, selectedDate)).thenReturn(Optional.ofNullable(priceEntity));
         when(priceMapper.toDomain(priceEntity)).thenReturn(mock(Price.class));
 
         //when
-        Price result = priceRepository.findPricesByProductIdAndBrandIdOnSelectedDate(productId, brandId, selectedDate);
+        Optional<Price> result = priceRepository.findPricesByProductIdAndBrandIdOnSelectedDate(productId, brandId, selectedDate);
 
         //then
         verify(priceH2DBRepository, times(1)).findPriorPriceByProductIdAndBrandIdOnSelectedDate(productId, brandId, selectedDate);
