@@ -14,6 +14,8 @@ spring:
       enabled: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
     show-sql: false
     properties:
       hibernate.hibernate.format_sql: true
@@ -22,3 +24,6 @@ spring:
   sql:
     init:
       schema-locations: classpath:database/schema.sql
+logging:
+  level:
+    sql: debug

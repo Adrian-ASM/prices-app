@@ -1,9 +1,9 @@
 package com.adri4m.prices_app.unit.application;
 
-import com.adri4sm.prices_app.application.usecase.PriceUseCase;
+import com.adri4sm.prices_app.application.usecase.ProductUseCase;
 import com.adri4sm.prices_app.domain.model.Price;
-import com.adri4sm.prices_app.domain.repository.PriceRepository;
-import com.adri4sm.prices_app.domain.service.PriceService;
+import com.adri4sm.prices_app.domain.repository.ProductRepository;
+import com.adri4sm.prices_app.domain.service.ProductService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,9 +20,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class PriceUseCaseTest {
 
-    private final PriceRepository priceRepository = mock(PriceRepository.class);
+    private final ProductRepository productRepository = mock(ProductRepository.class);
 
-    private final PriceService priceService = new PriceUseCase(priceRepository);
+    private final ProductService productService = new ProductUseCase(productRepository);
 
     private Long productId;
     private Integer brandId;
@@ -39,20 +39,20 @@ public class PriceUseCaseTest {
     void shouldThrowExceptionWhenNoPriceIsFound() {
         LocalDateTime now = LocalDateTime.now();
         //given
-        when(priceRepository.findPricesByProductIdAndBrandIdOnSelectedDate(productId, brandId, now)).thenReturn(Optional.empty());
+        when(productRepository.findPricesByProductIdAndBrandIdOnSelectedDate(productId, brandId, now)).thenReturn(Optional.empty());
 
         //when-then
-        assertThrows(NoSuchElementException.class, () -> priceService.calculatePrice(productId, brandId, now));
+        assertThrows(NoSuchElementException.class, () -> productService.calculateProductPrice(productId, brandId, now));
     }
 
     @Test
     void shouldReturnPriceWithMaxPriorityOnSelectedDate() {
         //given
         LocalDateTime now = LocalDateTime.now();
-        when(priceRepository.findPricesByProductIdAndBrandIdOnSelectedDate(productId, brandId, now)).thenReturn(Optional.of(priceWithHighPriority));
+        when(productRepository.findPricesByProductIdAndBrandIdOnSelectedDate(productId, brandId, now)).thenReturn(Optional.of(priceWithHighPriority));
 
         //when
-        Price result = priceService.calculatePrice(productId, brandId, now);
+        Price result = productService.calculateProductPrice(productId, brandId, now);
 
         //then
         Assertions.assertEquals(priceWithHighPriority, result);

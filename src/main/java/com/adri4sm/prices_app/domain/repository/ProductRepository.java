@@ -5,7 +5,7 @@ import com.adri4sm.prices_app.domain.model.Price;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public interface PriceRepository {
+public interface ProductRepository {
 
     Optional<Price> findPricesByProductIdAndBrandIdOnSelectedDate(Long productId,
                                                                   Integer brandId,

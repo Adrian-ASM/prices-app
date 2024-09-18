@@ -42,7 +42,7 @@ public class PriceEntity {
     private Integer priority;
 
     @Column(name = "PRICE", nullable = false)
-    private Double productPrice;
+    private Double price;
 
     @Column(name = "CURR", nullable = false, length = 3)
     @Enumerated(value = EnumType.STRING)
@@ -51,12 +51,13 @@ public class PriceEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PriceEntity priceEntity)) return false;
-        return Objects.equals(id, priceEntity.id) && Objects.equals(brandId, priceEntity.brandId) && Objects.equals(startDate, priceEntity.startDate) && Objects.equals(endDate, priceEntity.endDate) && Objects.equals(rateId, priceEntity.rateId) && Objects.equals(productId, priceEntity.productId) && Objects.equals(priority, priceEntity.priority) && Objects.equals(productPrice, priceEntity.productPrice) && Objects.equals(currency, priceEntity.currency);
+        if (o == null || getClass() != o.getClass()) return false;
+        PriceEntity that = (PriceEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(brandId, that.brandId) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(rateId, that.rateId) && Objects.equals(productId, that.productId) && Objects.equals(priority, that.priority) && Objects.equals(price, that.price) && currency == that.currency;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, brandId, startDate, endDate, rateId, productId, priority, productPrice, currency);
+        return Objects.hash(id, brandId, startDate, endDate, rateId, productId, priority, price, currency);
     }
 }

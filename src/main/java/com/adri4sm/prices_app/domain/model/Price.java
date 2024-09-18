@@ -20,7 +20,7 @@ public class Price {
     private Integer rateId;
     private Long productId;
     private Integer priority;
-    private Double productPrice;
+    private Double price;
     private Currency currency;
 
 }

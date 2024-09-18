@@ -4,7 +4,7 @@ import com.adri4sm.prices_app.domain.model.Price;
 
 import java.time.LocalDateTime;
 
-public interface PriceService {
+public interface ProductService {
 
     /**
      * Calculate the price of a product given the product id and brand id on a specific date
@@ -14,6 +14,6 @@ public interface PriceService {
      * @param selectedDate Selected date
      * @return Price of the product
      */
-    Price calculatePrice(Long productId, Integer brandId, LocalDateTime selectedDate);
+    Price calculateProductPrice(Long productId, Integer brandId, LocalDateTime selectedDate);
 
 }

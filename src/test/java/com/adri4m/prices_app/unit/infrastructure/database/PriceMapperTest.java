@@ -31,7 +31,7 @@ public class PriceMapperTest {
         assertEquals(priceEntity.getRateId(), price.getRateId());
         assertEquals(priceEntity.getStartDate(), price.getStartDate());
         assertEquals(priceEntity.getEndDate(), price.getEndDate());
-        assertEquals(priceEntity.getProductPrice(), price.getProductPrice());
+        assertEquals(priceEntity.getPrice(), price.getPrice());
         
     }
     
