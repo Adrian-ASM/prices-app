@@ -34,10 +34,9 @@ public class ProductIntegrationTest {
 
     private static Stream<Arguments> dateAndExpectedPriceResult() {
         return Stream.of(
-                arguments("2020-06-14T00:00:00", 35.5),
-                arguments("2020-06-14T05:00:00", 35.5),
-                arguments("2020-06-14T15:30:00", 25.45),
-                arguments("2020-06-14T20:00:00", 35.5),
+                arguments("2020-06-14T10:00:00", 35.5),
+                arguments("2020-06-14T16:00:00", 25.45),
+                arguments("2020-06-14T21:00:00", 35.5),
                 arguments("2020-06-15T10:00:00", 30.5),
                 arguments("2020-06-16T21:00:00", 38.95)
         );

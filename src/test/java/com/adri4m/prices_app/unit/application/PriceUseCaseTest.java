@@ -1,6 +1,7 @@
 package com.adri4m.prices_app.unit.application;
 
 import com.adri4sm.prices_app.application.usecase.ProductUseCase;
+import com.adri4sm.prices_app.domain.exception.ResourceNotFoundException;
 import com.adri4sm.prices_app.domain.model.Price;
 import com.adri4sm.prices_app.domain.repository.ProductRepository;
 import com.adri4sm.prices_app.domain.service.ProductService;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,7 +42,7 @@ public class PriceUseCaseTest {
         when(productRepository.findPricesByProductIdAndBrandIdOnSelectedDate(productId, brandId, now)).thenReturn(Optional.empty());
 
         //when-then
-        assertThrows(NoSuchElementException.class, () -> productService.calculateProductPrice(productId, brandId, now));
+        assertThrows(ResourceNotFoundException.class, () -> productService.calculateProductPrice(productId, brandId, now));
     }
 
     @Test
