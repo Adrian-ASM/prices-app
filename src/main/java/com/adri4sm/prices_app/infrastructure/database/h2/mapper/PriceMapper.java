@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 public interface PriceMapper {
 
     /**
-     * MMap Price entity from database to model object
+     * Map Price entity from database to model object
      *
      * @param priceEntity Price database entity object
      * @return  Price model object
