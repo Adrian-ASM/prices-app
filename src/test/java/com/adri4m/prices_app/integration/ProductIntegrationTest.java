@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.stream.Stream;
 
@@ -58,7 +60,7 @@ public class ProductIntegrationTest {
 
 
     @Test
-    void testNotValidProductId() throws Exception {
+    void testByNonExistentProductId() throws Exception {
         Long productId = Long.MAX_VALUE;
         int brandId = 1;
         String date = "2020-06-14T00:00:00";
@@ -72,7 +74,7 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    void testNotValidBrandId() throws Exception {
+    void testByNonExistentBrandId() throws Exception {
         Long productId = 35455L;
         int brandId = Integer.MAX_VALUE;
         String date = "2020-06-14T00:00:00";
@@ -83,6 +85,32 @@ public class ProductIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertInstanceOf(ResourceNotFoundException.class, result.getResolvedException()));
+    }
+
+    @Test
+    void testMissingRequiredBrandId() throws Exception {
+        Long productId = 35455L;
+        String brand = "brand";
+        String date = "2020-06-14T00:00:00";
+
+        this.mockMvc.perform(get(BASE_PRODUCTS_URL + PRODUCT_ID_PATH_PARAM, productId)
+                        .queryParam(BRAND_ID_QUERY_PARAM, brand)
+                        .queryParam(SELECTED_DATE_QUERY_PARAM, date))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertInstanceOf(MethodArgumentTypeMismatchException.class, result.getResolvedException()));
+    }
+
+    @Test
+    void testByBrandIdInvalidValue() throws Exception {
+        Long productId = 35455L;
+        String date = "2020-06-14T00:00:00";
+
+        this.mockMvc.perform(get(BASE_PRODUCTS_URL + PRODUCT_ID_PATH_PARAM, productId)
+                        .queryParam(SELECTED_DATE_QUERY_PARAM, date))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertInstanceOf(MissingServletRequestParameterException.class, result.getResolvedException()));
     }
 
     @Test

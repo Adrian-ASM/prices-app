@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +35,24 @@ public class PriceMapperTest {
         assertEquals(priceEntity.getEndDate(), price.getEndDate());
         assertEquals(priceEntity.getPrice(), price.getPrice());
         
+    }
+
+    @Test
+    void shouldMapPriceEntityListToPriceModelObjectList() {
+        //given
+        final PriceEntity priceEntity = entityGenerator.nextObject(PriceEntity.class);
+
+        //when
+        List<Price> priceList = priceMapper.toDomainList(List.of(priceEntity));
+
+        //then
+        assertEquals(priceEntity.getProductId(), priceList.get(0).getProductId());
+        assertEquals(priceEntity.getBrandId(), priceList.get(0).getBrandId());
+        assertEquals(priceEntity.getRateId(), priceList.get(0).getRateId());
+        assertEquals(priceEntity.getStartDate(), priceList.get(0).getStartDate());
+        assertEquals(priceEntity.getEndDate(), priceList.get(0).getEndDate());
+        assertEquals(priceEntity.getPrice(), priceList.get(0).getPrice());
+
     }
     
 }
